@@ -1,0 +1,33 @@
+{
+  "name": "skele",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "react-dev": "webpack",
+    "start-dev": "nodemon server/index.js"
+  },
+  "author": "Andy Kwong",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "chart.js": "^2.9.4",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-paginate": "^7.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "nodemon": "^2.0.7",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  }
+}
