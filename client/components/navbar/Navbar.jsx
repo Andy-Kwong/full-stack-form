@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../utilities/utilities';
 import Menu from './Menu';
+import RouterLink from './RouterLink';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -16,7 +17,12 @@ const Wrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const HomeLink = styled.a`
+const Spacer = styled.div`
+  width: 100%;
+  height: 70px;
+`;
+
+const AppTitle = styled.span`
   font-size: 2em;
   font-weight: bold;
   text-align: center;
@@ -26,9 +32,14 @@ const HomeLink = styled.a`
 
 export default function Navbar() {
   return (
-    <Wrapper>
-      <HomeLink>Useless App</HomeLink>
-      <Menu />
-    </Wrapper>
+    <>
+      <Spacer />
+      <Wrapper>
+        <RouterLink to="/">
+          <AppTitle>Useless App</AppTitle>
+        </RouterLink>
+        <Menu />
+      </Wrapper>
+    </>
   );
 }

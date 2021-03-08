@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../utilities/utilities';
+import RouterLink from './RouterLink';
 
 const Container = styled.div`
   display: flex;
@@ -8,7 +9,7 @@ const Container = styled.div`
   width: 200px;
 `;
 
-const Link = styled.a`
+const LinkText = styled.span`
   height: 100%;
   font-size: 1em;
   cursor: pointer;
@@ -20,8 +21,12 @@ const Link = styled.a`
 export default function Menu() {
   return (
     <Container>
-      <Link isSelected>About</Link>
-      <Link>Contrived Form</Link>
+      <RouterLink to="/about">
+        <LinkText>About</LinkText>
+      </RouterLink>
+      <RouterLink to="/form">
+        <LinkText>Contrived Form</LinkText>
+      </RouterLink>
     </Container>
   );
 }
