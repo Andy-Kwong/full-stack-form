@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { colors } from '../utilities/utilities';
 import ErrorMessage from './ErrorMessage';
-import BaseModal from '../modal/BaseModal';
+import SuccessModal from '../modal/SuccessModal';
+import DeleteModal from '../modal/DeleteModal';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -24,7 +25,7 @@ const Form = styled.form`
   max-width: 450px;
   display: flex;
   flex-direction: column;
-  z-index: -1;
+  z-index: 0;
 `;
 
 const Label = styled.label`
@@ -70,19 +71,23 @@ export default function ContrivedForm() {
   const [fields, setFields] = useState({ name: '', email: '', message: '' });
   const [firstSubmit, setFirstSubmit] = useState(true);
   const [toDelete, setToDelete] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFirstSubmit(false);
     if (toDelete && fields.email) {
-      axios.delete('/api/user/', { data: { email: fields.email } })
-        .then(data => console.log(data));
+      setShowDeleteModal(true);
+      return;
     }
     if (!fields.name || !fields.email || !fields.message) return;
     // make post/put req
     axios.post('/api/user/', fields)
-      .then(data => console.log(data));
-    console.log(fields);
+      .then(data => {
+        console.log(data);
+        setShowSuccessModal(true);
+      });
     clearForm();
   };
 
@@ -99,8 +104,32 @@ export default function ContrivedForm() {
     document.getElementById('contrived-form').reset();
   };
 
+  const confirmDelete = () => {
+    axios.delete('/api/user/', { data: { email: fields.email } })
+      .then(data => {
+        console.log(data);
+        setShowDeleteModal(false);
+        setShowSuccessModal(true);
+      });
+  };
+
+  useEffect(() => {
+    if (!showDeleteModal && !showSuccessModal) {
+      document.body.style.overflow = '';
+    }
+  }, [showDeleteModal, showSuccessModal]);
+
   return (
     <Wrapper>
+      <SuccessModal
+        show={showSuccessModal}
+        toggleShow={setShowSuccessModal}
+      />
+      <DeleteModal
+        show={showDeleteModal}
+        toggleShow={setShowDeleteModal}
+        confirmDelete={confirmDelete}
+      />
       <Form id="contrived-form" onSubmit={handleSubmit}>
         <Title>Contrived Form</Title>
         <Label>Name</Label>
