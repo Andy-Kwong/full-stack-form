@@ -6,8 +6,9 @@ const mongoose = require('mongoose');
 const userDb = require('../db/userController');
 
 const port = 3000;
+const host = process.env.HOST || 'localhost';
 
-mongoose.connect('mongodb://database/fsWorkshop',
+mongoose.connect(`mongodb://${host}/fsWorkshop`,
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
     const app = createServer();
