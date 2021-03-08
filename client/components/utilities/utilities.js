@@ -5,4 +5,12 @@ export const colors = {
   mediumGrey: 'rgb(150, 150, 150)',
   darkGrey: 'rgb(90, 90, 90)',
   white: 'rgb(255, 255, 255)',
-}
+};
+
+export const windowWidth = {
+  mobile: 480,
+};
+
+export const deviceSize = {
+  mobile: `(max-width: ${windowWidth.mobile}px)`,
+};

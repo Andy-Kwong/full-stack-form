@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { colors } from '../utilities/utilities';
+import { colors, deviceSize } from '../utilities/utilities';
 import ErrorMessage from './ErrorMessage';
 import SuccessModal from '../modal/SuccessModal';
 import DeleteModal from '../modal/DeleteModal';
+import { addUser, deleteUser } from '../../api';
 
 const Wrapper = styled.div`
   width: 100vw;
   height: 900px;
   display: flex;
   flex-direction: column;
-  margin-top: 70px;
   align-items: center;
 `;
 
@@ -21,11 +21,16 @@ const Title = styled.h1`
 
 const Form = styled.form`
   position: relative;
-  width: 50%;
+  width: 70%;
   max-width: 450px;
   display: flex;
   flex-direction: column;
+  margin-top: 70px;
   z-index: 0;
+  @media ${deviceSize.mobile} {
+    width: 90%;
+    margin-top: 30px;
+  }
 `;
 
 const Label = styled.label`
@@ -82,13 +87,7 @@ export default function ContrivedForm() {
       return;
     }
     if (!fields.name || !fields.email || !fields.message) return;
-    // make post/put req
-    axios.post('/api/user/', fields)
-      .then(data => {
-        console.log(data);
-        setShowSuccessModal(true);
-      });
-    clearForm();
+    addUser(fields, () => setShowSuccessModal(true));
   };
 
   const handleChange = (e) => {
@@ -97,20 +96,11 @@ export default function ContrivedForm() {
     });
   };
 
-  const clearForm = () => {
-    setToDelete(false);
-    setFirstSubmit(true);
-    setFields({ name: '', email: '', message: '' });
-    document.getElementById('contrived-form').reset();
-  };
-
   const confirmDelete = () => {
-    axios.delete('/api/user/', { data: { email: fields.email } })
-      .then(data => {
-        console.log(data);
-        setShowDeleteModal(false);
-        setShowSuccessModal(true);
-      });
+    deleteUser(fields.email, () => {
+      setShowDeleteModal(false);
+      setShowSuccessModal(true);
+    });
   };
 
   useEffect(() => {
