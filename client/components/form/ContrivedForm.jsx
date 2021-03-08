@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { colors } from '../utilities/utilities';
 import ErrorMessage from './ErrorMessage';
@@ -34,11 +34,6 @@ const Input = styled.input`
   background-color: ${colors.lightGrey};
   border: 1px ${colors.mediumGrey} solid;
   border-radius: 3px;
-  [type='checkbox'] {
-    background: ${colors.lightGrey};
-    width: 20px;
-    height: 20px;
-  }
 `;
 
 const Checkbox = styled.input`
@@ -68,24 +63,78 @@ const SendButton = styled.button`
 `;
 
 export default function ContrivedForm() {
+  const [fields, setFields] = useState({ name: '', email: '', message: '' });
+  const [firstSubmit, setFirstSubmit] = useState(true);
+  const [toDelete, setToDelete] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFirstSubmit(false);
+    if (!fields.name || !fields.email || !fields.message) return;
+    // make post/put req
+    console.log(fields);
+    clearForm();
+  };
+
+  const handleChange = (e) => {
+    setFields(fields => {
+      return { ...fields, [e.target.name]: e.target.value };
+    });
+  };
+
+  const clearForm = () => {
+    setToDelete(false);
+    setFirstSubmit(true);
+    setFields({ name: '', email: '', message: '' });
+    document.getElementById('contrived-form').reset();
+  };
+
   return (
     <Wrapper>
-      <Form>
+      <Form id="contrived-form" onSubmit={handleSubmit}>
         <Title>Contrived Form</Title>
         <Label>Name</Label>
-        <Input type="text" name="name"></Input>
-        <ErrorMessage>Please provide your name.</ErrorMessage>
+        <Input
+          type="text"
+          name="name"
+          onChange={handleChange}
+          defaultValue={fields.name}
+        >
+        </Input>
+        <ErrorMessage show={!toDelete && !fields.name.length && !firstSubmit}>
+          Please provide your name.
+        </ErrorMessage>
 
         <Label>Email</Label>
-        <Input type="email" name="email"></Input>
-        <ErrorMessage>Please provide a valid email address.</ErrorMessage>
+        <Input
+          type="email"
+          name="email"
+          onChange={handleChange}
+          defaultValue={fields.email}
+        >
+        </Input>
+        <ErrorMessage show={!fields.email.length && !firstSubmit}>
+          Please provide a valid email address.
+        </ErrorMessage>
 
         <Label>Message</Label>
-        <TextArea name="message" rows="10"></TextArea>
-        <ErrorMessage>Uhhhhh... what can we help you with?</ErrorMessage>
+        <TextArea
+          name="message"
+          rows="10"
+          onChange={handleChange}
+          defaultValue={fields.message}
+        />
+        <ErrorMessage show={!toDelete && !fields.message.length && !firstSubmit}>
+          Uhhhhh... what can we help you with?
+        </ErrorMessage>
 
         <Label>
-          <Checkbox type="checkbox" name="delete"></Checkbox>
+          <Checkbox
+            type="checkbox"
+            name="delete"
+            onChange={(e) => setToDelete(e.target.checked)}
+          >
+          </Checkbox>
           Delete my account
         </Label>
         <SendButton>Send</SendButton>
