@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { colors, deviceSize } from '../utilities/utilities';
 import ErrorMessage from './ErrorMessage';
 import SuccessModal from '../modal/SuccessModal';
@@ -70,6 +69,7 @@ const SendButton = styled.button`
   font-weight: bold;
   color: ${colors.white};
   margin-top: 1.75em;
+  cursor: pointer;
 `;
 
 export default function ContrivedForm() {
@@ -102,12 +102,6 @@ export default function ContrivedForm() {
       setShowSuccessModal(true);
     });
   };
-
-  useEffect(() => {
-    if (!showDeleteModal && !showSuccessModal) {
-      document.body.style.overflow = '';
-    }
-  }, [showDeleteModal, showSuccessModal]);
 
   return (
     <Wrapper>

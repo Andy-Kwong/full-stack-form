@@ -24,6 +24,7 @@ const HomeButton = styled.button`
   border: none;
   font-size: 1em;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 export default function SuccessModal({ show, toggleShow }) {

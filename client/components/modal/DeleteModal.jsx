@@ -36,7 +36,7 @@ const Button = styled.button`
 
 export default function DeleteModal({ show, toggleShow, confirmDelete }) {
   return (
-    <BaseModal show={show}>
+    <BaseModal show={show} exit={() => toggleShow(false)}>
       <Container>
         <TextContainer>
           <h3>Sure you want to delete your account?</h3>
