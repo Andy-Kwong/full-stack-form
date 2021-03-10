@@ -5,7 +5,7 @@ const APP_DIR = path.resolve(__dirname, 'client'); // where the pre-transpiled c
 
 module.exports = {
   target: 'node',
-  mode: 'development',
+  mode: process.env.MODE || 'development',
   entry: `${APP_DIR}/index.jsx`, // need to reference the point where we call reactdom.render
   output: {
     path: BUILD_DIR, // where we want to put bundle.js usually wherever index.html is
@@ -38,6 +38,6 @@ module.exports = {
   optimization: {
     minimize: false,
   },
-  watch: true,
+  watch: process.env.MODE === 'development' ? true : false,
   resolve: { extensions: ['.js', '.jsx'] },
 };
