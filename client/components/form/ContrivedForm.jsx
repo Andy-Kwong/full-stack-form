@@ -8,12 +8,12 @@ const Wrapper = styled.div`
   height: 900px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  margin-top: 70px;
   align-items: center;
 `;
 
 const Title = styled.h1`
-  margin-bottom: 0;
+  margin: 0;
 `;
 
 const Form = styled.form`
