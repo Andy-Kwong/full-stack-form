@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   top: 0;
   left: 0;
   box-sizing: border-box;
+  z-index: 1;
 `;
 
 const Spacer = styled.div`
