@@ -19,11 +19,11 @@ const HomeButton = styled.button`
   background-color: ${colors.themePurple};
   padding: 0.5em;
   color: ${colors.white};
-  margin-top: 1em;
   border-radius: 3px;
   border: none;
   font-size: 1em;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 export default function SuccessModal({ show, toggleShow }) {
@@ -32,10 +32,10 @@ export default function SuccessModal({ show, toggleShow }) {
       <Container>
         <h2 style={{ textAlign: 'center' }}>We read you loud and clear</h2>
         <p style={{ margin: 0, textAlign: 'center' }}>We received your message and will respond accordingly</p>
-        <RouterLink to="/">
+        <RouterLink to="/" styles={{ 'margin-top': '1em' }} >
           <HomeButton onClick={() => toggleShow(false)}>Take me home, country road</HomeButton>
         </RouterLink>
       </Container>
-    </BaseModal>
+    </BaseModal >
   );
 }
